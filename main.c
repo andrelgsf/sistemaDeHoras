@@ -118,3 +118,95 @@ void solicitarHoras() {
     }
 }
 
+void aprovarHoras() {
+    for (int i = 0; i < qtdRegistros; i++) {
+        if (registros[i].aprovado == 0) {
+            for (int j = 0; j < qtdPessoas; j++) {
+                if (pessoas[j].id == registros[i].idPessoa) {
+                    printf("ID: %d\n", pessoas[j].id);
+                    printf("Nome: %s\n", pessoas[j].nome);
+                    printf("Horas extras: %d\n", registros[i].horasExtras);
+
+                    printf("Insira 1 para aprovar ou 2 para negar a solicitação de horas extras pagas: ");
+                    scanf("%d", &registros[i].aprovado);
+
+                    if (registros[i].aprovado == 1) {
+                        registros[i].aprovado = 1;
+                        printf("Horas extras aprovadas!\n");
+                    } else if (registros[i].aprovado == 2) {
+                        registros[i].aprovado = 2;
+                        printf("Horas extras negadas.\n");
+                    } else {
+                        printf("Valor inválido para avaliação de aprovação.\n");
+                    }
+                }
+            }
+        }
+    }
+}
+
+void gerarRelatorio() {
+    if (qtdRegistros == 0) {
+        printf("Não há nenhum registro avaliado pelo gestor ou não há funcionários cadastrados.\n");
+        return; // sai da função por nao ter nenhum registro
+    }
+
+    for (int i = 0; i < qtdPessoas; i++) { // 
+        int totalHorasPessoa = 0; // cria essa variável de totalHoras pra cada pessoa dentro do vetor de qtdPessoas
+
+        for (int j = 0; j < qtdRegistros; j++) {
+            if (registros[j].idPessoa == pessoas[i].id && registros[j].aprovado == 1) {
+                totalHorasPessoa += registros[j].horasExtras; // soma as horas aprovadas
+            }
+        }
+
+        if (totalHorasPessoa > 0) { // se a pessoa tiver horas aprovadas
+            printf("\nNome: %s\n", pessoas[i].nome);
+            printf("ID: %d\n", pessoas[i].id);
+            printf("Valor total pendente: R$%d\n", totalHorasPessoa * VALOR_HORA_EXTRA); //imprime o nome, id e o valor total pendente multiplicando pelo define do valor da hora extra
+            
+        }
+    }
+}
+
+int main() {
+    int opcao;
+
+    do {
+        printf("\n--- MENU PRINCIPAL ---\n");
+        printf("1. Cadastrar funcionário\n");
+        printf("2. Solicitar horas extras\n");
+        printf("3. Aprovar horas extras\n");
+        printf("4. Gerar relatório\n");
+        printf("5. Listar pessoas\n");
+        printf("0. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrarPessoa();
+                break;
+            case 2:
+                solicitarHoras();
+                break;
+            case 3:
+                aprovarHoras();
+                break;
+            case 4:
+                gerarRelatorio();
+                break;
+            case 5:
+                listarPessoas();
+                break;
+            case 0:
+                printf("Saindo do sistema...\n");
+                break;
+            default:
+                printf("Opção não consta nas opções do sistema.Tente denovo\n");
+        }
+
+    } while (opcao != 0);
+
+    return 0;
+}
