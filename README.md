@@ -1,6 +1,7 @@
 REGISTRO E CONTABILIZAÇÃO DE HORAS EXTRAS
 
-Análise do Problema
+Análise do Problema: 
+
 O sistema foi desenvolvido para resolver o problema do controle manual de horas extras ainda praticado por muitas empresas.
 Antes da digitalização, esse processo dependia do preenchimento de formulários físicos, revisões e aprovações manuais, o que o tornava demorado, suscetível a erros e de difícil acompanhamento.
 A ausência de automação gerava retrabalho, lentidão na consolidação das informações e falhas na comunicação entre funcionários e gestores.
